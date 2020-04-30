@@ -8,7 +8,12 @@ class BookController {
   }
 
   async index(req, res) {
-    const book = await Book.findAll();
+    const { page = 1 } = req.query;
+
+    const book = await Book.findAll({
+      limit: 10,
+      offset: (page - 1) * 10,
+    });
 
     return res.json(book);
   }
