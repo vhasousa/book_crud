@@ -19,6 +19,10 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false,
     },
+    page_number: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
     year: {
       type: Sequelize.INTEGER,
       allowNull: false,
@@ -29,6 +33,10 @@ module.exports = {
     },
     price: {
       type: Sequelize.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    isbn: {
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     created_at: {

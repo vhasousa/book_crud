@@ -1,10 +1,29 @@
 import Book from '../models/Book';
+import File from '../models/File';
 
 class BookController {
   async store(req, res) {
-    const book = await Book.create(req.body);
+    const {
+      title, description, author, page_number, year, publishing_company, price, isbn,
+    } = await Book.create(req.body, {
+      include: [
+        {
+          model: File,
+          attributes: ['id', 'name', 'path'],
+        },
+      ],
+    });
 
-    return res.json(book);
+    return res.json({
+      title,
+      description,
+      author,
+      page_number,
+      year,
+      publishing_company,
+      price,
+      isbn,
+    });
   }
 
   async index(req, res) {
@@ -13,6 +32,9 @@ class BookController {
     const book = await Book.findAll({
       limit: 10,
       offset: (page - 1) * 10,
+      order: [
+        ['updated_at', 'DESC'],
+      ],
     });
 
     return res.json(book);
